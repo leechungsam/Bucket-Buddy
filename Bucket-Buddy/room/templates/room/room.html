@@ -1,18 +1,21 @@
 {% extends 'shared/base.html' %}
 {% block content %}
+{{ room_name|json_script:"room-name" }}
 <body>
     {{ room_name|json_script:"room-name" }}
     {% if room_name == 'soccer' %}
         <h1>축구방</h1>
     {% elif room_name == 'baseball' %}
         <h1>야구방</h1>
-    {% else %}
+    {% elif room_name == 'basketball' %}
         <h1>농구방</h1>
+    {% else %}
+        <h1>{{room_name}}님과 대화<h1>
     {% endif %}
     <textarea id="chat-log" cols="70" rows="20"></textarea><br>
     <input id="chat-message-input" type="text" size="67"><br>
     <input id="chat-message-submit" type="button" value="Send">
-    {{ room_name|json_script:"room-name" }}
+   
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
