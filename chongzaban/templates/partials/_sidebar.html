@@ -1,0 +1,114 @@
+{% load static %}
+<div class="sidebar">
+  {% if user.is_authenticated %}
+  <div class="user-profile">
+    <div class="display-avatar animated-avatar">
+      <img
+        class="profile-img img-lg rounded-circle"
+        src="{% static 'images/profile/male/image_1.png' %}"
+        alt="profile image"
+      />
+    </div>
+    <div class="info-wrapper">
+
+      <p class="user-name" style="font-size: 20px;">{{ request.user.username }}</p>
+      <h6 id="display-address" class="display-income" style="font-size: 16px;">주소</h6>
+    </div>
+
+  </div>
+  <ul class="navigation-menu">
+    <li class="nav-category-divider">MENU</li>
+    <li>
+      <a href="#toggle_mypage" data-toggle="collapse" aria-expanded="false">
+        <span class="link-title">Profile</span>
+        <i class="bi bi-person-circle link-icon"></i>
+      </a>
+      <ul class="collapse navigation-submenu" id="toggle_mypage">
+        <li>
+          <a href="{% url 'user:mypage' request.user.id %}">My Page</a>
+        </li>
+        <li>
+          <a href="{% url 'account_logout' %}">
+            <button type="button" class="btn btn-default" style="width: 80%; margin: 3% 10% 0 10%">
+              Logout
+            </button>
+            </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'buckets:view_bucket' %}">
+        <span class="link-title">Bucket List</span>
+        <i class="bi bi-bookmark-star link-icon"></i>
+      </a>
+    </li>
+    <li>
+      <a href="#sample-pages" data-toggle="collapse" aria-expanded="false">
+        <span class="link-title">Board</span>
+        <i class="bi bi-clipboard-x link-icon"></i>
+      </a>
+      <ul class="collapse navigation-submenu" id="sample-pages">
+        <li>
+          <a href="{% url 'allPost' 'all'%}">전체게시판</a>
+        </li>
+        <li>
+          <a href="{% url 'allPost' 'free' %}" >자유게시판</a>
+        </li>
+        <li>
+          <a href="{% url 'allPost' 'suggest' %}" >건의하기</a>
+        </li>
+        <li>
+          <a href="{% url 'allPost' 'review' %}" >후기</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  {% else %}
+    <div class="user-profile">
+      <a href="{% url 'account_login' %}">
+        <button type="button" class="btn btn-primary" style="width: 80%; margin: 0 10% 0 10%">
+          LOGIN
+        </button>
+      </a>
+      <a href="{% url 'account_signup' %}">
+        <button type="button" class="btn btn-default" style="width: 80%; margin: 3% 10% 0 10%">
+          SIGNUP
+        </button>
+      </a>
+    </div>
+  <ul class="navigation-menu">
+    <li class="nav-category-divider">MENU</li>
+    <li>
+      <a href="{% url 'buckets:view_bucket' %}">
+        <span class="link-title">Bucket List</span>
+        <i class="bi bi-bookmark-star link-icon"></i>
+      </a>
+    </li>
+    <li>
+      <a href="#sample-pages" data-toggle="collapse" aria-expanded="false">
+        <span class="link-title">Board</span>
+        <i class="mdi mdi-flask link-icon"></i>
+      </a>
+      <ul class="collapse navigation-submenu" id="sample-pages">
+<<<<<<< HEAD
+      
+=======
+>>>>>>> cd98a4ed27b9c5cf9de48b89419cb60413890b26
+        <li>
+          <a href="{% url 'allPost' 'all'%}">전체게시판</a>
+        </li>
+        <li>
+          <a href="{% url 'allPost' 'free' %}" >자유게시판</a>
+        </li>
+        <li>
+          <a href="{% url 'allPost' 'suggest' %}" >건의하기</a>
+        </li>
+        <li>
+          <a href="{% url 'allPost' 'review' %}" >후기</a>
+        </li>
+      </ul>
+    </li>
+  
+  </ul>
+  {%endif%}
+</div>

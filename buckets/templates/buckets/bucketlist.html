@@ -1,0 +1,52 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+<div class="viewport-header">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb has-arrow">
+      <li class="breadcrumb-item">
+        <a href="{% url 'buckets:view_bucket' %}">BucketList</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Category</li>
+    </ol>
+  </nav>
+</div>
+<div>
+  {% if user.is_authenticated %}
+    <div class="btn btn-success btn-rounded">
+      <a href="{% url 'buckets:write' %}" style="text-decoration: none; font-size: 16px;">
+        버킷리스트 작성하기
+      </a>
+    </div>
+  {% else %}
+  {% endif %}
+  <div>
+    <a href="{% url 'buckets:detail' 'travel' %}">여행</a>
+  </div>
+  <div>
+    <a href="{% url 'buckets:detail' 'develop' %}">자기 개발</a>
+  </div>
+  <div>
+    <a href="{% url 'buckets:detail' 'leisure' %}">여가</a>
+  </div>
+  <div>
+    <a href="{% url 'buckets:detail' 'healthy' %}">건강</a>
+  </div>
+  <div>
+    <a href="{% url 'buckets:detail' 'love' %}">사랑</a>
+  </div>
+  <div>
+    <a href="{% url 'buckets:detail' 'society' %}">사회</a>
+  </div>
+  <div>
+    <a href="{% url 'buckets:detail' 'dream' %}">꿈</a>
+  </div>
+  <div>
+    <a href="{% url 'buckets:detail' 'family' %}">가족</a>
+  </div>
+  <div>
+    <a href="{% url 'buckets:detail' 'more' %}">기타</a>
+  </div>
+</div>
+
+{% endblock %}

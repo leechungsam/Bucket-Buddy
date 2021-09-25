@@ -1,0 +1,29 @@
+{%extends 'shared/base.html'%}
+
+{%block content %}
+
+{% load static %}
+
+
+<div class="postlist">
+<div id="contents">
+    
+        <br><br>
+            <br><br>
+            {% if list %}
+                {% for unit in list %}
+                <div id="content">  
+                    제목 | {{unit.title}}<br> 
+                    작성자 | {{unit.writer}}<br>
+                    설명 |  {{unit.summary}} 
+                    <a class="toNext" href="{% url 'detailPage' unit.id%}">...더보기</a><br>
+            </div>
+            <br>
+            {% endfor %}
+            <br>
+        {% elif search_term %}<!-- 검색란이 공란인지 확인-->
+            <b><i>Search Word({{ search_term }}) Not Found</i></b>
+        {% endif %}
+    </div>
+</div>
+{%endblock%}

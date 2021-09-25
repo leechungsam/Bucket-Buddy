@@ -1,0 +1,179 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+<div class="viewport-header">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb has-arrow">
+      <li class="breadcrumb-item">
+        <a href="#">Profile</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Mypage</li>
+    </ol>
+  </nav>
+</div>
+<div class="col-lg-12">
+  <h2 class="mb-3">#{{user.username}}님의 버킷리스트</h2>
+  <div class="grid">
+    <div class="item-wrapper">
+      <div class="table-responsive">
+        <table class="table info-table">
+          <thead>
+            <tr>
+              <th style="width: 10%;">No.</th>
+              <th style="width: 10%;">Category</th>
+              <th style="width: 70%;">Content</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for bucket in buckets %}
+              <tr>
+                <td style="width: 10%;">{{ bucket.id }}</td>
+                <td style="width: 10%;">{{ bucket.category }}</td>
+                <td style="width: 70%;">{{ bucket.content }}</td>
+                {% if request.user == bucket.writer %}
+                  <td class="btn-group">
+                    <button type="button" class="btn btn-trasnparent action-btn btn-xs component-flat pr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="mdi mdi-dots-vertical"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="{% url 'buckets:update' bucket.id %}">수정</a>
+                      <a class="dropdown-item" href="{% url 'buckets:delete' bucket.id %}">삭제</a>
+                    </div>
+                  </td>
+                {% else %}
+                {% endif %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 equel-grid">
+    <div class="grid">
+      <div class="grid-body">
+        <div class="split-header">
+          <p class="card-title"><mark>#{{ user.username }}님의 Profile</mark></p>
+        </div>
+        <div class="vertical-timeline-wrapper">
+          <div class="timeline-vertical dashboard-timeline">
+            <div class="activity-log">
+              <p class="log-name">
+                주소
+              </p>
+              <div class="log-details">
+                {% for unit in profile %}
+                  {{ unit.address }}
+                {% endfor %}
+              </div>
+            </div>
+            <!-- <div class="activity-log">
+              <p class="log-name">Ronald Edwards</p>
+              <div class="log-details">Report has been updated <div class="grouped-images mt-2">
+                  <img class="img-sm" src="../assets/images/profile/male/image_4.png" alt="Profile Image" data-toggle="tooltip" title="Gerald Pierce">
+                  <img class="img-sm" src="../assets/images/profile/male/image_5.png" alt="Profile Image" data-toggle="tooltip" title="Edward Wilson">
+                  <img class="img-sm" src="../assets/images/profile/female/image_6.png" alt="Profile Image" data-toggle="tooltip" title="Billy Williams">
+                  <img class="img-sm" src="../assets/images/profile/male/image_6.png" alt="Profile Image" data-toggle="tooltip" title="Lelia Hampton">
+                  <span class="plus-text img-sm">+3</span>
+                </div>
+              </div>
+              <small class="log-time">3 Hours Ago</small>
+            </div> -->
+            <div class="activity-log">
+              <p class="log-name">희망 매치 인원</p>
+              <div class="log-details">Added new images</div>
+            </div>
+            <a class="px-3 py-2 d-block text-gray" href="#">
+              <div class="btn btn-rounded col-md-12 col-lg-12 social-btn btn-instagram">채팅하기</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 equel-grid">
+    <div class="grid">
+      <div class="grid-body py-3">
+        <p class="card-title ml-n1"><mark>내가 쓴 글</mark></p>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr class="solid-header">
+              <th class="pr-0 pl-4">Category</th>
+              <th class="pl-md-0">Title</th>
+              <th class=" pl-4">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if posts %}
+              {% for post in posts %}
+              <tr>
+                <td class="pr-0 pl-4">
+                  [{{ post.category }}]
+                </td>
+                <td class="pl-md-0">
+                  <small class="text-black font-weight-medium d-block">
+                    <a href="{% url 'detailPage' post.id %}">
+                      {{ post.title }}
+                    </a>
+                  </small>
+                  <!-- <span class="text-gray">
+                    <span class="status-indicator rounded-indicator small bg-primary"></span>Account Deactivated
+                  </span> -->
+                </td>
+                <td class=" pl-4"> {{ post.pub_date }} </td>
+              </tr>
+              {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="3" class="text-center" style="color: 29CBFE;"> 작성한 글이 없습니다. </td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div><br>
+      <div class="grid-body py-3">
+        <p class="card-title ml-n1"><mark>내가 쓴 댓글</mark></p>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr class="solid-header">
+              <th class="pr-0 pl-4">Post</th>
+              <th class="pl-md-0">Content</th>
+              <th class="pl-4">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if comments %}
+              {% for comment in comments %}
+              <tr>
+                <td class="pr-0 pl-4">
+                  {{ comment.postId }}
+                </td>
+                <td class="pl-md-0">
+                  <small class="text-black font-weight-medium d-block">
+                    {{ comment.summary }}
+                  </small>
+                  <!-- <span class="text-gray">
+                    <span class="status-indicator rounded-indicator small bg-primary"></span>Account Deactivated
+                  </span> -->
+                </td>
+                <td class=" pl-4"> {{ comment.pub_date }} </td>
+              </tr>
+              {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="3" class="text-center" style="color: 29CBFE;"> 작성한 덧글이 없습니다. </td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
+
+{% endblock %}
