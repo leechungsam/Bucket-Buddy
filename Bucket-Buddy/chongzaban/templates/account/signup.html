@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>BUCKET BUDDY - SIGNUP</title>
+    {% load i18n %}
+    {% load account socialaccount %}
+    {% load static %}
+    
+    <!-- 위치 api -->
+    <script type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7ae62fa65184acae545a359f6f14c8d0&libraries=services"></script>
+
+
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{% static 'vendors/iconfonts/mdi/css/materialdesignicons.css' %}" />
+    <link rel="stylesheet" href="{% static 'vendors/css/vendor.addons.css' %}" />
+    <!-- endinject -->
+    <!-- vendor css for this page -->
+    <!-- End vendor css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static 'css/shared/style.css' %}" />
+    <!-- endinject -->
+    <!-- Layout style -->
+    <link rel="stylesheet" href="{% static 'css/demo_1/style.css' %}">
+    <!-- Layout style -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+  </head>
+  <body>
+    <div class="authentication-theme auth-style_1" style="margin-top: -60px;">
+      <div class="row">
+        <div class="col-12 logo-section">
+          <a href="{% url 'main' %}" class="logo">
+            <img class="logo" src="{% static 'images/bucketbuddylogo1.png' %}" style="width: 120%;" alt="" />
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-11 mx-auto">
+          <div class="grid">
+            <div class="grid-body">
+              <div class="row">
+                <div class="col-lg-7 col-md-8 col-sm-9 col-12 mx-auto form-wrapper">
+                  {% load widget_tweaks %}
+                  <form method="POST" action="{% url 'account_signup' %}" id="account">
+                    {% csrf_token %}
+                    {% if redirect_field_value %}
+                      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="customFile">
+                      <label class="custom-file-label" for="customFile">Choose file</label>
+                      {% render_field form.photo class="custom-file-input" id="customFile" %}
+                      <label class="custom-file-label" for="customFile">{{form.photo.label}}</label>
+                      {% for error in form.photo.errors %}
+                        <span class="help-block">{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                    <div class="form-group row showcase_row_area">
+                      <div class="col-md-3 showcase_text_area">
+                        <label for="username">{{form.username.label}}</label>
+                      </div>
+                      <div class="col-md-9 showcase_content_area">
+                        {% render_field form.username id="username" class="form-control" placeholder="username" %}
+                        {% for error in form.username.errors %}
+                          <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div class="form-group row showcase_row_area">
+                      <div class="col-md-3 showcase_text_area">
+                        <label for="email">{{form.email.label}}</label>
+                      </div>
+                      <div class="col-md-9 showcase_content_area">
+                        {% render_field form.email id="email" class="form-control" placeholder="email" %}
+                        {% for error in form.email.errors %}
+                          <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div class="form-group row showcase_row_area">
+                      <div class="col-md-3 showcase_text_area">
+                        <label for="address">{{form.address.label}}</label>
+                      </div>
+                      <div class="col-md-9 showcase_content_area">
+                        {% render_field form.address id="display-address" class="form-control" placeholder="address" %}
+                        {% for error in form.address.errors %}
+                          <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div class="form-group row showcase_row_area">
+                      <div class="col-md-3 showcase_text_area">
+                        <label for="password1">{{form.password1.label}}</label>
+                      </div>
+                      <div class="col-md-9 showcase_content_area">
+                        {% render_field form.password1 id="password1" class="form-control" placeholder="password1" %}
+                        {% for error in form.password1.errors %}
+                          <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div class="form-group row showcase_row_area">
+                      <div class="col-md-3 showcase_text_area">
+                        <label for="password2">{{form.password2.label}}</label>
+                      </div>
+                      <div class="col-md-9 showcase_content_area">
+                        {% render_field form.password2 id="password2" class="form-control" placeholder="password2" %}
+                        {% for error in form.password2.errors %}
+                          <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block"> Sign Up </button>
+                  </form>
+                  <div class="signup-link">
+                    <p>Already have account</p>
+                    <a href="{% url 'account_login' %}">Login</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="auth_footer">
+        <p class="text-muted text-center">© Label Inc 2019</p>
+      </div>
+    </div>
+    <!--page body ends -->
+    <!-- SCRIPT LOADING START FORM HERE /////////////-->
+    <!-- plugins:js -->
+    <script src="{% static 'vendors/js/core.js' %}"></script>
+    <script src="{% static 'vendors/js/vendor.addons.js' %}"></script>
+    <!-- endinject -->
+    <!-- Vendor Js For This Page Ends-->
+    <!-- Vendor Js For This Page Ends-->
+    <!-- build:js -->
+    <script src="{% static 'js/template.js' %}"></script>
+    <!-- endbuild -->
+    <!-- 지도 api -->
+    <script>
+      var geocoder = new kakao.maps.services.Geocoder();
+      var displayAddress = document.getElementById('display-address');
+
+      function setAddress(city, gu, dong) {
+        displayAddress.value = city + ' ' + gu + ' ' + dong;
+      };
+
+      function onGeoSuccess(position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        geocoder.coord2Address(lng, lat, function(result, status){
+          if (status === kakao.maps.services.Status.OK) {
+            setAddress(result[0].address.region_1depth_name, result[0].address.region_2depth_name, result[0].address.region_3depth_name);
+          }
+        });
+      };
+
+      function onGeoError() {
+        alert("위치 정보를 찾을 수 없습니다.");
+      };
+
+      navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError);
+    </script>
+  </body>
+</html>
