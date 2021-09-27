@@ -1,5 +1,6 @@
 # 2021 🦁 어흥 해커톤 🦁 11팀 BUCKET BUDDY
 개발 기간 : 2021. 09. 25(토)
+http://kongzaban.herokuapp.com/room/soccer/
 
 ## 서비스 소개
 : 버킷리스트를 함께 실현하는 사람들의 커뮤니티
@@ -26,4 +27,4 @@ pip3 install django-allauth
 ```
 pip3 install pillow
 ```
-http://kongzaban.herokuapp.com/room/soccer/
+
